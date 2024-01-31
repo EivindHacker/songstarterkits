@@ -1,17 +1,11 @@
 import express, {response} from "express";
 import User from "../modules/user.mjs";
-import HttpCodes from "../modules/httpErrorCodes.mjs";
+import {HTTPCodes, HTTPMethods} from "../modules/httpConstants.mjs";
 
 const USER_API = express.Router();
+USER_API.use(express.json); // This makes it so that express parses all incoming payloads as JSON for this route.
 
 const users = [];
-
-const hello = function (req, res, next) {
-	console.log("Hello World");
-	next();
-};
-
-USER_API.use(hello);
 
 USER_API.get("/:id", (req, res, next) => {
 	// Tip: All the information you need to get the id part of the request can be found in the documentation
@@ -39,12 +33,12 @@ USER_API.post("/", (req, res, next) => {
 
 		if (!exists) {
 			users.push(user);
-			res.status(HttpCodes.SuccesfullRespons.Ok).end();
+			res.status(HTTPCodes.SuccesfullRespons.Ok).end();
 		} else {
-			res.status(HttpCodes.ClientSideErrorRespons.BadRequest).end();
+			res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).end();
 		}
 	} else {
-		res.status(HttpCodes.ClientSideErrorRespons.BadRequest).send("Mangler data felt").end();
+		res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).send("Mangler data felt").end();
 	}
 });
 
