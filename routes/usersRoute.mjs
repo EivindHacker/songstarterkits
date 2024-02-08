@@ -1,53 +1,84 @@
-import express, {response} from "express";
+// usersRoute.mjs
+
+import express from "express";
 import User from "../modules/user.mjs";
 import {HTTPCodes, HTTPMethods} from "../modules/httpConstants.mjs";
+import {validateInput, getIllegalInputs, clearIllegalInputs, inputType} from "../modules/inputValidator.mjs";
 
 const USER_API = express.Router();
-USER_API.use(express.json); // This makes it so that express parses all incoming payloads as JSON for this route.
+USER_API.use(express.json());
 
 const users = [];
 
 USER_API.get("/:id", (req, res, next) => {
-	// Tip: All the information you need to get the id part of the request can be found in the documentation
-	// https://expressjs.com/en/guide/routing.html (Route parameters)
-	/// TODO:
-	// Return user object
+	const userId = req.params.id;
+
+	const user = users.find((user) => user.id === userId);
+
+	if (user) {
+		res.status(HTTPCodes.SuccesfullRespons.Ok).json(user);
+	} else {
+		res.status(HTTPCodes.ClientSideErrorRespons.NotFound).send("User not found").end();
+	}
 });
 
+function createUser(userData) {
+	const newUser = new User();
+	newUser.id = btoa(userData.name + userData.email);
+	newUser.name = userData.name;
+	newUser.email = userData.email;
+	newUser.pswHash = userData.pswHash;
+	newUser.creator = userData.creator;
+	newUser.credits = 0;
+	newUser.purchasedKits = [];
+	newUser.uploadedKits = [];
+
+	users.push(newUser);
+
+	return newUser;
+}
+
+function checkIfUserExists(email) {
+	return users.some((user) => user.email === email);
+}
+
 USER_API.post("/", (req, res, next) => {
-	// This is using javascript object destructuring.
-	// Recomend reading up https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#syntax
-	// https://www.freecodecamp.org/news/javascript-object-destructuring-spread-operator-rest-parameter/
-	const {name, email, password} = req.body;
+	const userData = req.body;
+	const {name, email, pswHash} = req.body;
+	console.log("User data:", {name, email, pswHash});
 
-	if (name != "" && email != "" && password != "") {
-		const user = new User();
-		user.name = name;
-		user.email = email;
+	clearIllegalInputs();
 
-		///TODO: Do not save passwords.
-		user.pswHash = password;
+	validateInput(email, inputType.email);
+	validateInput(name, inputType.name);
+	validateInput(pswHash, inputType.pswHash);
 
-		///TODO: Does the user exist?
-		let exists = false;
+	const illegalInputs = getIllegalInputs();
 
-		if (!exists) {
-			users.push(user);
-			res.status(HTTPCodes.SuccesfullRespons.Ok).end();
+	if (illegalInputs === "") {
+		const userExists = checkIfUserExists(email);
+		console.log("userExists: ", userExists);
+
+		if (!userExists) {
+			const newUser = createUser(userData);
+
+			console.log("User created successfully:", newUser);
+			res.status(HTTPCodes.SuccesfullRespons.Ok).json({userId: newUser.id});
 		} else {
-			res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).end();
+			console.log("User already exists");
+			res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).send("User already exists").end();
 		}
 	} else {
-		res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).send("Mangler data felt").end();
+		res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).send(illegalInputs).end();
 	}
 });
 
 USER_API.put("/:id", (req, res) => {
-	/// TODO: Edit user
+	// TODO: Edit user
 });
 
 USER_API.delete("/:id", (req, res) => {
-	/// TODO: Delete user.
+	// TODO: Delete user.
 });
 
 export default USER_API;

@@ -1,11 +1,20 @@
-class User {
+import DBManager from "./storageManager.mjs";
 
-    constructor() {
-        ///TODO: Are these the correct fields for your project?
-        this.email;
-        this.pswHash;
-        this.name;
-    }
+class User {
+	constructor() {
+		this.id;
+		this.email;
+		this.name;
+		this.pswHash;
+		this.credits;
+		this.purchasedKits;
+		this.uploadedKits;
+		this.creator;
+	}
+
+	save() {
+		DBManager.save(this);
+	}
 }
 
 export default User;

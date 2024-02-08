@@ -23,16 +23,16 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="../css/global-style.css" />
-		<link rel="stylesheet" href="../css/home.css" />
+		<link rel="stylesheet" href="./css/global-style.css" />
+		<link rel="stylesheet" href="./css/home.css" />
 		<title>Songstarterkits - Home</title>
-		<link rel="icon" type="image/png" href="../assets/flavicon.png" />
+		<link rel="icon" type="image/png" href="./assets/flavicon.png" />
 	</head>
 
 	<body>
-		<div class="static-nav" id="navbar"></div>
+		<nav class="static-nav" id="navbar"></nav>
 
-		<script src="../pageModules/global/menubar.js" type="module"></script>
+		<script src="./scripts/globalScripts/menubar.js" type="module"></script>
 
 		<div style="height: 60px"></div>
 
@@ -47,7 +47,7 @@
 		</div>
 
 		<div class="cont">
-			<h2 style="text-align: center; padding: 20px; margin-left: 0px">Hot Right Now<img src="../assets/btnIcons/flame.png" class="hot-flame" /></h2>
+			<h2 style="text-align: center; padding: 20px; margin-left: 0px">Hot Right Now<img src="./assets/btnIcons/flame.png" class="hot-flame" /></h2>
 			<div class="card-cont hot-kit-cont" style="border: none"></div>
 		</div>
 
@@ -62,7 +62,7 @@
 
 		<div style="height: 50px"></div>
 
-		<div class="title-img-cont" style="background-image: url(../assets/homeImgs/bgImgs/black-sand.jpg)">
+		<div class="title-img-cont" style="background-image: url(./assets/homeImgs/bgImgs/black-sand.jpg)">
 			<h2>You are the boss</h2>
 		</div>
 		<div style="height: 25px"></div>
@@ -70,12 +70,24 @@
 			<div class="stem-selector">
 				<h3 class="stem-header">Stem Selector</h3>
 				<div class="stem-grid">
-					<img src="../assets/btnIcons/drumsBtn.svg" class="stem-ico" />
-					<img src="../assets/btnIcons/melodyBtn.svg" class="stem-ico" style="animation-delay: 0.5s" />
-					<img src="../assets/btnIcons/stringsBtn.svg" class="stem-ico" style="animation-delay: 1s" />
-					<img src="../assets/btnIcons/keysBtn.svg" class="stem-ico" style="animation-delay: 1.5s" />
-					<img src="../assets/btnIcons/brassBtn.svg" class="stem-ico" style="animation-delay: 2s" />
-					<img src="../assets/btnIcons/vocalsBtn.svg" class="stem-ico" style="animation-delay: 2.5s" />
+					<div style="display: flex; flex-direction: column">
+						<img src="./assets/btnIcons/drumsBtn.svg" class="stem-ico" /><span class="stem-txt">DRMS</span>
+					</div>
+					<div style="display: flex; flex-direction: column">
+						<img src="./assets/btnIcons/melodyBtn.svg" class="stem-ico" style="animation-delay: 0.5s" /><span class="stem-txt">MLDY</span>
+					</div>
+					<div style="display: flex; flex-direction: column">
+						<img src="./assets/btnIcons/stringsBtn.svg" class="stem-ico" style="animation-delay: 1s" /><span class="stem-txt">STRI</span>
+					</div>
+					<div style="display: flex; flex-direction: column">
+						<img src="./assets/btnIcons/keysBtn.svg" class="stem-ico" style="animation-delay: 1.5s" /><span class="stem-txt">KEYS</span>
+					</div>
+					<div style="display: flex; flex-direction: column">
+						<img src="./assets/btnIcons/brassBtn.svg" class="stem-ico" style="animation-delay: 2s" /><span class="stem-txt">BRAS</span>
+					</div>
+					<div style="display: flex; flex-direction: column">
+						<img src="./assets/btnIcons/vocalsBtn.svg" class="stem-ico" style="animation-delay: 2.5s" /><span class="stem-txt">VOCS</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -89,57 +101,74 @@
 
 		<div class="cont">
 			<div class="stem-cont sc1">
-				<img src="../assets/btnIcons/drumsBtn.svg" class="stem-img" />
+				<img src="./assets/btnIcons/drumsBtn.svg" class="stem-img" />
 				<h3 class="stem-type">Drums</h3>
 			</div>
 			<div class="stem-cont sc2">
-				<img src="../assets/btnIcons/melodyBtn.svg" class="stem-img" />
+				<img src="./assets/btnIcons/melodyBtn.svg" class="stem-img" />
 				<h3 class="stem-type">Melody</h3>
 			</div>
 			<div class="stem-cont sc3">
-				<img src="../assets/btnIcons/bassBtn.svg" class="stem-img" />
+				<img src="./assets/btnIcons/bassBtn.svg" class="stem-img" />
 				<h3 class="stem-type">Bass</h3>
 			</div>
 			<div class="stem-cont sc4">
-				<img src="../assets/btnIcons/leadBtn.svg" class="stem-img" />
+				<img src="./assets/btnIcons/leadBtn.svg" class="stem-img" />
 				<h3 class="stem-type">Lead</h3>
 			</div>
 		</div>
 
 		<div style="height: 5vw"></div>
 
-		<div class="title-img-cont" style="background-image: url(../assets/homeImgs/bgImgs/filter-bg.png)">
+		<div class="title-img-cont" style="background-image: url(./assets/homeImgs/bgImgs/filter-bg.png)">
 			<h2>Listen With Filter</h2>
 		</div>
 
 		<div class="cont">
 			<div style="height: 40px"></div>
 			<div class="filter-body">
-				<h3 class="filter-header">FILTER</h3>
+				<div style="display: flex; justify-content: space-between; align-items: center; margin-top: -5px">
+					<img style="height: 25px; filter: brightness(0.4)" src="./assets/btnIcons/power-ico.png" />
+					<h3 class="filter-header">FILTER</h3>
+					<img style="height: 25px; filter: brightness(0.4)" src="./assets/btnIcons/link.png" />
+				</div>
+
 				<div class="filter-sliders">
 					<div style="position: relative">
 						<div class="filter-slider">
-							<div class="filter-circle circle1"></div>
+							<div class="filter-circle"></div>
 						</div>
-						<img src="../assets/btnIcons/filter-type.svg" class="filter-type" />
+						<img src="./assets/btnIcons/filter-type.svg" class="filter-type" />
 					</div>
 					<div style="position: relative">
 						<div class="filter-slider">
-							<div class="filter-circle circle2" style="animation-delay: 0.2s"></div>
+							<div class="filter-circle" style="animation-delay: 0.2s"></div>
 						</div>
-						<img src="../assets/btnIcons/filter-type.svg" class="filter-type" />
+						<img src="./assets/btnIcons/filter-type.svg" class="filter-type" />
 					</div>
 					<div style="position: relative">
 						<div class="filter-slider">
-							<div class="filter-circle circle3" style="animation-delay: 0.4s"></div>
+							<div class="filter-circle" style="animation-delay: 0.4s"></div>
 						</div>
-						<img src="../assets/btnIcons/filter-type.svg" class="filter-type" />
+						<img src="./assets/btnIcons/filter-type.svg" class="filter-type" />
 					</div>
 					<div style="position: relative">
 						<div class="filter-slider">
-							<div class="filter-circle circle4" style="animation-delay: 0.6s"></div>
+							<div class="filter-circle" style="animation-delay: 0.6s"></div>
 						</div>
-						<img src="../assets/btnIcons/filter-type.svg" class="filter-type" />
+						<img src="./assets/btnIcons/filter-type.svg" class="filter-type" />
+					</div>
+					<div style="position: relative">
+						<div class="filter-slider">
+							<div class="filter-circle" style="animation-delay: 0.8s"></div>
+						</div>
+						<img src="./assets/btnIcons/filter-type.svg" class="filter-type" />
+					</div>
+					<div style="position: relative">
+						<div class="filter-slider">
+							<div class="filter-circle" style="animation-delay: 1s"></div>
+						</div>
+						<img src="./assets/btnIcons/filter-type.svg" class="filter-type" />
 					</div>
 				</div>
 			</div>
@@ -147,10 +176,9 @@
 			<p style="width: 90%; max-width: 500px; margin: auto; margin-top: 40px; text-align: justify; color: rgb(227, 227, 227); font-size: 18px">
 				Edit and visualize with our brand-new <i style="color: rgb(255, 196, 0)">Filter</i> function! We have now included frequency filters (highpass
 				and lowpass) to our kit player, so you can further edit our kits to match your preferences. <br />
-				Filter each indiviudal key, or press the link icon <img src="/img/link.png" style="height: 14px; filter: brightness(0.5)" /> in the top right
-				corner to controll all stems at once. <br /><br />
+				Filter each indiviudal key, or press the link icon <img src="./assets/btnIcons/link.png" style="height: 14px; filter: brightness(0.5)" /> in
+				the top right corner to controll all stems at once. <br /><br />
 				Access the filter functions by pressing the two orange lines above the stem selector
-				<img src="/img/orange-lines.png" style="height: 24px; position: absolute; margin-top: 0px" />
 			</p>
 		</div>
 
@@ -167,7 +195,7 @@
 		<div class="cont">
 			<div class="card-cont">
 				<div class="card-element" style="cursor: pointer" onclick="location='./maybon.html'">
-					<img src="../assets/creatorImgs/maybon.jpg" class="card-img" style="pointer-events: none" />
+					<img src="./assets/creatorImgs/maybon.jpg" class="card-img" style="pointer-events: none" />
 					<div class="card-info">
 						<h3 class="lg-txt">Maybon</h3>
 						<h4 class="md-txt"></h4>
@@ -175,7 +203,7 @@
 					</div>
 				</div>
 				<div class="card-element" style="cursor: pointer">
-					<img src="../assets/creatorImgs/sindre.jpg" class="card-img" style="pointer-events: none" />
+					<img src="./assets/creatorImgs/sindre.jpg" class="card-img" style="pointer-events: none" />
 
 					<div class="card-info">
 						<h3 class="lg-txt">EDVYN</h3>
@@ -184,7 +212,7 @@
 					</div>
 				</div>
 				<div class="card-element" style="cursor: pointer">
-					<img src="../assets/creatorImgs/maybon.jpg" class="card-img" style="pointer-events: none" />
+					<img src="./assets/creatorImgs/maybon.jpg" class="card-img" style="pointer-events: none" />
 					<div class="card-info">
 						<h3 class="lg-txt">Maybon</h3>
 						<h4 class="md-txt"></h4>
@@ -192,7 +220,7 @@
 					</div>
 				</div>
 				<div class="card-element" style="cursor: pointer">
-					<img src="../assets/creatorImgs/sindre.jpg" class="card-img" style="pointer-events: none" />
+					<img src="./assets/creatorImgs/sindre.jpg" class="card-img" style="pointer-events: none" />
 
 					<div class="card-info">
 						<h3 class="lg-txt">EDVYN</h3>
@@ -205,7 +233,7 @@
 
 		<div style="height: 8vw; max-height: 125px"></div>
 
-		<div id="how-to" class="title-img-cont" style="background-image: url(../assets/homeImgs/bgImgs/how-to.jpg)">
+		<div id="how-to" class="title-img-cont" style="background-image: url(./assets/homeImgs/bgImgs/how-to.jpg)">
 			<h2 id="how-to">How to use SongStarterKits</h2>
 		</div>
 
@@ -218,59 +246,59 @@
 			<div style="width: 80%">
 				<div class="key-container">
 					<div class="key-element">
-						<img class="key-img" src="../assets/btnIcons/drumsBtn.svg" />
+						<img class="key-img" src="./assets/btnIcons/drumsBtn.svg" />
 						<p class="key-letter">!</p>
 						<p class="key-number">1</p>
 					</div>
 					<div class="key-element">
-						<img class="key-img" src="../assets/btnIcons/melodyBtn.svg" />
+						<img class="key-img" src="./assets/btnIcons/melodyBtn.svg" />
 						<p class="key-letter">"</p>
 						<p class="key-number">2</p>
 					</div>
 					<div class="key-element">
-						<img class="key-img" src="../assets/btnIcons/bassBtn.svg" />
+						<img class="key-img" src="./assets/btnIcons/bassBtn.svg" />
 						<p class="key-letter">#</p>
 						<p class="key-number">3</p>
 					</div>
 					<div class="key-element">
-						<img class="key-img" src="../assets/btnIcons/leadBtn.svg" />
+						<img class="key-img" src="./assets/btnIcons/leadBtn.svg" />
 						<p class="key-letter">$</p>
 						<p class="key-number">4</p>
 					</div>
 					<div class="key-element">
-						<img class="key-img" src="../assets/btnIcons/leadBtn.svg" />
+						<img class="key-img" src="./assets/btnIcons/leadBtn.svg" />
 						<p class="key-letter">$</p>
 						<p class="key-number">4</p>
 					</div>
 					<div class="key-element">
-						<img class="key-img" src="../assets/btnIcons/leadBtn.svg" />
+						<img class="key-img" src="./assets/btnIcons/leadBtn.svg" />
 						<p class="key-letter">$</p>
 						<p class="key-number">4</p>
 					</div>
 				</div>
 			</div>
 			<div style="height: 3vw"></div>
-			<img src="../assets/homeImgs/tutorial/step1.png" style="width: 80%; margin-left: 10%" />
+			<img src="./assets/homeImgs/tutorial/step1.png" style="width: 80%; margin-left: 10%" />
 			<h3 class="step-title">• &nbsp; Step 2</h3>
 			<p class="step-txt">
 				After you have found a kit you like, click the shopping cart icon
 				<img src="../assets/btnIcons/cartBtn.png" style="height: 20px; position: absolute" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to the right.
 				<br />&nbsp;
 			</p>
-			<img src="../assets/homeImgs/tutorial/step2.png" style="width: 80%; margin-left: 10%; border: 5px solid #121212" />
+			<img src="./assets/homeImgs/tutorial/step2.png" style="width: 80%; margin-left: 10%; border: 5px solid #121212" />
 			<h3 class="step-title">• &nbsp; Step 3</h3>
 			<p class="step-txt">Click Buy now, or Add to cart if you want to browse for more kits.</p>
-			<img src="../assets/homeImgs/tutorial/step3.png" style="width: 80%; margin-left: 10%; border: 5px solid #121212" />
+			<img src="./assets/homeImgs/tutorial/step3.png" style="width: 80%; margin-left: 10%; border: 5px solid #121212" />
 			<h3 class="step-title">• &nbsp; Step 4</h3>
 			<p class="step-txt">
 				Fill out you billing information, and make sure you have added the right email address. Last, choose your prefered payment method.
 			</p>
-			<img src="../assets/homeImgs/tutorial/step4.png" class="step-img" />
+			<img src="./assets/homeImgs/tutorial/step4.png" class="step-img" />
 			<h3 class="step-title">• &nbsp; Step 5</h3>
 			<p class="step-txt">
 				After purchasing, you'll recieve an email with a link to download your kits. Import the files into your workstation and get creative!.
 			</p>
-			<img src="../assets/homeImgs/tutorial/step5.png" class="step-img" />
+			<img src="./assets/homeImgs/tutorial/step5.png" class="step-img" />
 
 			<h3 class="step-title" style="max-width: 600px; text-align: center; margin: auto">
 				Video tutorials for several workstations such as: Final Cut, Adobe Premiere, Logic Pro, Fl Studio and more... Will be uploaded here soon.
@@ -284,7 +312,7 @@
 			<h3 class="free-header">Free Key Calculator</h3>
 			<p style="width: 80%; text-align: center">Get creative and use our Key Calculator to mix your kits in the right key.<br />&nbsp;</p>
 			<a href="key-calc.html">
-				<img class="key-calc-img" src="../assets/homeImgs/key-calc-window.png" />
+				<img class="key-calc-img" src="./assets/homeImgs/key-calc-window.png" />
 			</a>
 			<h3 class="free-header">Free Filter Plugin</h3>
 			<p style="width: 80%; text-align: center">
@@ -292,18 +320,17 @@
 				software. Either if you're on MacOS or Windows.
 				<br />Best of all, its going to be <a style="color: rgb(255, 196, 0)">FREE</a> with your first purchase at SongStarterKits.com <br />&nbsp;
 			</p>
-			<img class="filter-plugin-img" src="../assets/homeImgs/filter-plugin.jpg" />
+			<img class="filter-plugin-img" src="./assets/homeImgs/filter-plugin.jpg" />
 		</div>
 
 		<!-- Footer -->
 		<div class="footer-line"></div>
 		<footer id="footer"></footer>
-		<script src="../pageModules/global/footer.js"></script>
+		<script src="./scripts/globalScripts/footer.js"></script>
 
-		<!-- KITS -->
-		<script src="../pageModules/home.js" type="module"></script>
+		<script src="./scripts//pageScripts/home.js" type="module"></script>
 
 		<!-- SCROLL ANIMATION/CSS TRIGGER -->
-		<script src="../pageModules/global/scrollEvents.js"></script>
+		<script></script>
 	</body>
 </html>

@@ -12,12 +12,10 @@ let userContContent = "";
 
 let userPic = "";
 
-console.log();
-
 const menuBarHTML = `
     <div class="nav-holder">
         <div class="logo-cont">
-                <img src="../../../assets/logos/logo.svg" alt="logo" class="logo">
+                <img src="../../assets/logos/logo.svg" alt="logo" class="logo">
                 <a class="logo-txt" href="index.html">
                     SongStarterKits
                 </a>
@@ -26,14 +24,14 @@ const menuBarHTML = `
         <nav class="nav-cont">         
             <a class="push-menu">.<br>.</a>
             <a id="home-link" href="index.html" class="nav-link">Home</a>
-            <a id="kits-link" href="kit-system.html" class="nav-link">Kits</a>
+            <a id="kits-link" href="kits.html" class="nav-link">Kits</a>
             <a id="about-link"  href="about.html" class="nav-link">About</a>
             <a id="contact-link" href="contact.html" class="nav-link">Contact</a>
             <a id="checkout-link" href="checkout.html" class="nav-link">Pricing</a>
         </nav>
         
         <div class="user-cont">
-            <button onclick="window.location.href='./signin.html'" class="signin-btn">Sign In</button>
+            <button onclick="window.location.href='./signup.html'" class="signin-btn">Sign Up/In</button>
             <button class="menu-btn">
                 <div class="hamburger"></div>
                 <div class="hamburger"></div>
@@ -66,14 +64,14 @@ export function updateMenuBar(credits) {
         </div>`;
 	} else {
 		userContContent = `
-        <button onclick="window.location.href='./signin.html'" class="signin-btn">Sign In</button>
+        <button onclick="window.location.href='./signup.html'" class="signin-btn">Sign Up/In</button>
         `;
 	}
 
 	const menuBarHTML = `
     <div class="nav-holder">
         <div class="logo-cont">
-                <img src="../../../assets/logos/logo.svg" alt="logo" class="logo">
+                <img src="../../assets/logos/logo.svg" alt="logo" class="logo">
                 <a class="logo-txt" href="index.html">
                     SongStarterKits
                 </a>
@@ -82,7 +80,7 @@ export function updateMenuBar(credits) {
         <nav class="nav-cont">         
             <a class="push-menu">.<br>.</a>
             <a id="home-link" href="index.html" class="nav-link">Home</a>
-            <a id="kits-link" href="kit-system.html" class="nav-link">Kits</a>
+            <a id="kits-link" href="kits.html" class="nav-link">Kits</a>
             <a id="about-link"  href="about.html" class="nav-link">About</a>
             <a id="contact-link" href="contact.html" class="nav-link">Contact</a>
             <a id="checkout-link" href="checkout.html" class="nav-link">Pricing</a>
@@ -141,3 +139,5 @@ const visualCredits = document.getElementById("visualCredits");
 export function updateMenuBarCredits() {
 	visualCredits.innerText = userCredits;
 }
+
+console.log(document.querySelector(".logo").src);

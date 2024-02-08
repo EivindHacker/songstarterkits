@@ -11,22 +11,22 @@ export default function playIntroAnim() {
 
 	const drumIco = document.createElement("img");
 	drumIco.classList.add("drum-anim-ico");
-	drumIco.src = "./btnImg/drumBtn.svg";
+	drumIco.src = "../../assets/btnIcons/drumsBtn.svg";
 	stemAnimCont.appendChild(drumIco);
 
 	const melodyIco = document.createElement("img");
 	melodyIco.classList.add("melody-anim-ico");
-	melodyIco.src = "./btnImg/melodyBtn.svg";
+	melodyIco.src = "../../assets/btnIcons/melodyBtn.svg";
 	stemAnimCont.appendChild(melodyIco);
 
 	const bassIco = document.createElement("img");
 	bassIco.classList.add("bass-anim-ico");
-	bassIco.src = "./btnImg/bassBtn.svg";
+	bassIco.src = "../../assets/btnIcons/bassBtn.svg";
 	stemAnimCont.appendChild(bassIco);
 
 	const leadIco = document.createElement("img");
 	leadIco.classList.add("lead-anim-ico");
-	leadIco.src = "./btnImg/leadBtn.svg";
+	leadIco.src = "../../assets/btnIcons/leadBtn.svg";
 	stemAnimCont.appendChild(leadIco);
 
 	if (document.URL.includes("index.html")) {
