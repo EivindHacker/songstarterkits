@@ -3,7 +3,7 @@
 import express from "express";
 import User from "../modules/user.mjs";
 import {HTTPCodes, HTTPMethods} from "../modules/httpConstants.mjs";
-import {validateInput, getIllegalInputs, clearIllegalInputs, inputType} from "../modules/inputValidator.mjs";
+import {validateInput, getIllegalInputs, inputType} from "../modules/inputValidator.mjs";
 
 const USER_API = express.Router();
 USER_API.use(express.json());
@@ -46,8 +46,6 @@ USER_API.post("/", (req, res, next) => {
 	const userData = req.body;
 	const {name, email, pswHash} = req.body;
 	console.log("User data:", {name, email, pswHash});
-
-	clearIllegalInputs();
 
 	validateInput(email, inputType.email);
 	validateInput(name, inputType.name);

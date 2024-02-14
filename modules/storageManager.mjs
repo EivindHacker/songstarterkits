@@ -1,46 +1,90 @@
-//import pg from "pg";
-//import {Client} from "pg";
+import pg from "pg";
+import SuperLogger from "./SuperLogger.mjs";
 
+// We are using an enviorment variable to get the db credentials
 if (process.env.DB_CONNECTIONSTRING == undefined) {
 	throw "You forgot the db connection string";
 }
 
-const dbConnectionString = process.env.DB_CONNECTIONSTRING === undefined;
-
-// Store user to DBnod
-//const statement = `INSERT INTO "public"."Users"("email", "name", "password") VALUES('${this.email}','${this.name}','${this.pswHash}','${this.credits}',)`;
+/// TODO: is the structure / design of the DBManager as good as it could be?
 
 class DBManager {
-	#credentials = "";
+	#credentials = {};
 
-	constructor(connectionstring) {
+	constructor(connectionString) {
 		this.#credentials = {
-			connectionstring,
-			ssl: {
-				rejectUnauthorized: process.env.LIVE || false,
-			},
+			connectionString,
+			ssl: process.env.DB_SSL === "true" ? process.env.DB_SSL : false,
 		};
 	}
 
-	async createUser(user) {
-		const client = new Client(this.#credentials);
+	async updateUser(user) {
+		const client = new pg.Client(this.#credentials);
 
 		try {
 			await client.connect();
-
-			//$1 $2 $3 RETURNING id;
-			const rows = await client.query(
-				`INSERT INTO "public"."Users"("name", "email", "password") VALUES($1::Text, $2::Text, $3::Text)`,
+			const output = await client.query('Update "public"."Users" set "name" = $1, "email" = $2, "password" = $3 where id = $4;', [
 				user.name,
 				user.email,
-				user.pswHash
+				user.pswHash,
+				user.id,
+			]);
+
+			// Client.Query returns an object of type pg.Result (https://node-postgres.com/apis/result)
+			// Of special intrest is the rows and rowCount properties of this object.
+
+			//TODO Did we update the user?
+		} catch (error) {
+			//TODO : Error handling?? Remember that this is a module seperate from your server
+		} finally {
+			client.end(); // Always disconnect from the database.
+		}
+
+		return user;
+	}
+
+	async deleteUser(user) {
+		const client = new pg.Client(this.#credentials);
+
+		try {
+			await client.connect();
+			const output = await client.query('Delete from "public"."Users"  where id = $1;', [user.id]);
+
+			// Client.Query returns an object of type pg.Result (https://node-postgres.com/apis/result)
+			// Of special intrest is the rows and rowCount properties of this object.
+
+			//TODO: Did the user get deleted?
+		} catch (error) {
+			//TODO : Error handling?? Remember that this is a module seperate from your server
+		} finally {
+			client.end(); // Always disconnect from the database.
+		}
+
+		return user;
+	}
+
+	async createUser(user) {
+		const client = new pg.Client(this.#credentials);
+
+		try {
+			await client.connect();
+			const output = await client.query(
+				'INSERT INTO "public"."Users"("name", "email", "password") VALUES($1::Text, $2::Text, $3::Text) RETURNING id;',
+				[user.name, user.email, user.pswHash]
 			);
 
-			if (output.row.lenght === 1) {
+			// Client.Query returns an object of type pg.Result (https://node-postgres.com/apis/result)
+			// Of special intrest is the rows and rowCount properties of this object.
+
+			if (output.rows.length == 1) {
+				// We stored the user in the DB.
 				user.id = output.rows[0].id;
 			}
-		} catch (err) {
-			console.log(err);
+		} catch (error) {
+			console.error(error);
+			//TODO : Error handling?? Remember that this is a module seperate from your server
+		} finally {
+			client.end(); // Always disconnect from the database.
 		}
 
 		return user;
@@ -48,3 +92,5 @@ class DBManager {
 }
 
 export default new DBManager(process.env.DB_CONNECTIONSTRING);
+
+//

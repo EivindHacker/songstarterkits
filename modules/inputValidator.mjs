@@ -13,6 +13,8 @@ function updateIllegalInputs(error) {
 function getIllegalInputs() {
 	const errorMessage = illegalInputs.join("<br>");
 
+	clearIllegalInputs();
+
 	return errorMessage;
 }
 
@@ -96,7 +98,7 @@ function validatePassword(password) {
 		missingElements = missingElements.slice(0, -2);
 	}
 
-	return missingElements ? `password is missing: ${missingElements}` : null;
+	return missingElements ? `password must have at least: ${missingElements}` : null;
 }
 
-export {validateInput, getIllegalInputs, clearIllegalInputs, inputType};
+export {validateInput, getIllegalInputs, inputType};

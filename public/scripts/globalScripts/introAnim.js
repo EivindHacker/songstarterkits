@@ -1,6 +1,7 @@
 //Opening Animation
 
 export default function playIntroAnim() {
+	return;
 	const animCont = document.createElement("div");
 	animCont.classList.add("anim-cont");
 	document.body.insertBefore(animCont, document.body.firstChild);
