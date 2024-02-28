@@ -1,82 +1,78 @@
-// usersRoute.mjs
-
 import express from "express";
 import User from "../modules/user.mjs";
-import {HTTPCodes, HTTPMethods} from "../modules/httpConstants.mjs";
+import {HTTPCodes} from "../modules/httpConstants.mjs";
+import SuperLogger from "../modules/SuperLogger.mjs";
 import {validateInput, getIllegalInputs, inputType} from "../modules/inputValidator.mjs";
 
 const USER_API = express.Router();
-USER_API.use(express.json());
+USER_API.use(express.json()); // This makes it so that express parses all incoming payloads as JSON for this route.
 
-const users = [];
-
-USER_API.get("/:id", (req, res, next) => {
-	const userId = req.params.id;
-
-	const user = users.find((user) => user.id === userId);
-
-	if (user) {
-		res.status(HTTPCodes.SuccesfullRespons.Ok).json(user);
-	} else {
-		res.status(HTTPCodes.ClientSideErrorRespons.NotFound).send("User not found").end();
-	}
+USER_API.get("/", (req, res, next) => {
+	SuperLogger.log("Demo of logging tool");
+	SuperLogger.log("A important msg", SuperLogger.LOGGING_LEVELS.CRTICAL);
 });
 
-function createUser(userData) {
-	const newUser = new User();
-	newUser.id = btoa(userData.name + userData.email);
-	newUser.name = userData.name;
-	newUser.email = userData.email;
-	newUser.pswHash = userData.pswHash;
-	newUser.creator = userData.creator;
-	newUser.credits = 0;
-	newUser.purchasedKits = [];
-	newUser.uploadedKits = [];
+USER_API.get("/:id", (req, res, next) => {
+	// Tip: All the information you need to get the id part of the request can be found in the documentation
+	// https://expressjs.com/en/guide/routing.html (Route parameters)
+	/// TODO:
+	// Return user object
+	res.json(req.params.id); // Send the user object as response
+});
 
-	users.push(newUser);
-
-	return newUser;
-}
-
-function checkIfUserExists(email) {
-	return users.some((user) => user.email === email);
-}
-
-USER_API.post("/", (req, res, next) => {
-	const userData = req.body;
-	const {name, email, pswHash} = req.body;
-	console.log("User data:", {name, email, pswHash});
+USER_API.post("/", async (req, res, next) => {
+	// This is using javascript object destructuring.
+	// Recomend reading up https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#syntax
+	// https://www.freecodecamp.org/news/javascript-object-destructuring-spread-operator-rest-parameter/
+	const {name, email, pswHash, creator} = req.body;
 
 	validateInput(email, inputType.email);
 	validateInput(name, inputType.name);
 	validateInput(pswHash, inputType.pswHash);
 
-	const illegalInputs = getIllegalInputs();
+	const illegalInputs = await getIllegalInputs();
 
 	if (illegalInputs === "") {
-		const userExists = checkIfUserExists(email);
-		console.log("userExists: ", userExists);
+		if (name != "" && email != "" && pswHash != "") {
+			let user = new User();
+			user.name = name;
+			user.email = email;
+			user.credits = 0;
+			user.purchased_kits = "";
+			user.uploaded_kits = "";
+			user.creator = creator;
 
-		if (!userExists) {
-			const newUser = createUser(userData);
+			///TODO: Do not save passwords.
+			user.pswHash = pswHash;
 
-			console.log("User created successfully:", newUser);
-			res.status(HTTPCodes.SuccesfullRespons.Ok).json({userId: newUser.id});
+			///TODO: Does the user exist?
+			let exists = false;
+
+			if (!exists) {
+				//TODO: What happens if this fails?
+				user = await user.save();
+				res.status(HTTPCodes.SuccesfullRespons.Ok).json(JSON.stringify(user)).end();
+			} else {
+				res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).end();
+			}
 		} else {
-			console.log("User already exists");
-			res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).send("User already exists").end();
+			res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).send("Mangler data felt").end();
 		}
 	} else {
 		res.status(HTTPCodes.ClientSideErrorRespons.BadRequest).send(illegalInputs).end();
 	}
 });
 
-USER_API.put("/:id", (req, res) => {
-	// TODO: Edit user
+USER_API.post("/:id", (req, res, next) => {
+	/// TODO: Edit user
+	const user = new User(); //TODO: The user info comes as part of the request
+	user.save();
 });
 
 USER_API.delete("/:id", (req, res) => {
-	// TODO: Delete user.
+	/// TODO: Delete user.
+	const user = new User(); //TODO: Actual user
+	user.delete();
 });
 
 export default USER_API;

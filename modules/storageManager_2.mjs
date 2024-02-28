@@ -19,10 +19,14 @@ class DBManager {
 		try {
 			await client.connect();
 			const output = await client.query('Update "public"."Users" set "name" = $1, "email" = $2, "password" = $3 where id = $4;', [
+				user.id,
 				user.name,
 				user.email,
 				user.pswHash,
-				user.id,
+				user.credits,
+				user.purchasedKits,
+				user.uploadedKits,
+				user.creator,
 			]);
 
 			// Client.Query returns an object of type pg.Result (https://node-postgres.com/apis/result)
@@ -64,7 +68,7 @@ class DBManager {
 		try {
 			await client.connect();
 			const output = await client.query(
-				'INSERT INTO "public"."Users"("name", "email", "password", "credits", "purchased_kits", "uploaded_kits", "creator") VALUES($1::Text, $2::Text, $3::Text, $4::Integer, $5::Text, $6::Text, $7::Boolean) RETURNING id;',
+				'INSERT INTO "public"."Users"("name", "email", "pswHash", "credits", "purchasedKits", "uploadedKits", "creator") VALUES($1::Text, $2::Text, $3::Text, $4::Text, $5::Text, $6::Text, $7::Text) RETURNING id;',
 				[user.name, user.email, user.pswHash, user.credits, user.purchasedKits, user.uploadedKits, user.creator]
 			);
 
@@ -91,16 +95,7 @@ class DBManager {
 // It is a judgment call which one is the best. But go for the one you understand the best.
 
 // 1:
-let connectionString = process.env.ENVIORMENT == "local" ? process.env.DB_CONNECTIONSTRING_LOCAL : process.env.DB_CONNECTIONSTRING_PROD;
-
-// 2:
-connectionString = process.env.DB_CONNECTIONSTRING_LOCAL;
-if (process.env.ENVIORMENT != "local") {
-	connectionString = process.env.DB_CONNECTIONSTRING_PROD;
-}
-
-//3:
-connectionString = process.env["DB_CONNECTIONSTRING_" + process.env.ENVIORMENT.toUpperCase()];
+let connectionString = process.env.ENVIORNMENT == "local" ? process.env.DB_CONNECTIONSTRING_LOCAL : process.env.DB_CONNECTIONSTRING_PROD;
 
 // We are using an enviorment variable to get the db credentials
 if (connectionString == undefined) {
